@@ -1,0 +1,44 @@
+
+server:
+  port: 8180
+
+spring:
+  # 数据源配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/smart_water?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  # redis配置
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 10s
+    database: 0
+
+# token配置
+token:
+  # 令牌自定义标识
+  header: Authorization
+  # 令牌密钥
+  secret: abcdefghijklmnopqrstuvwxyz
+  # 令牌有效期（默认30分钟）
+  expireTime: 30
+
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.hohai.component.**.entity
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  # 加载全局的配置文件
+  configLocation: classpath:mybatis/mybatis-config.xml
+
+
+# swagger配置
+swagger:
+  enable: true
+  application-name: 智慧水平台框架接口文档
+  application-version: 1.0
+  application-description: 用于开发过程中的接口测试
+  try-host: http://localhost:${server.port}
+
