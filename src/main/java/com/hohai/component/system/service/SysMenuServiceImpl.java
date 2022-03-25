@@ -6,6 +6,7 @@ import com.hohai.component.common.core.model.TreeSelect;
 import com.hohai.component.common.util.SecurityUtils;
 import com.hohai.component.common.util.StringUtils;
 import com.hohai.component.system.entity.SysMenu;
+import com.hohai.component.system.entity.SysUser;
 import com.hohai.component.system.mapper.SysMenuMapper;
 import com.hohai.component.system.mapper.SysRoleMapper;
 import com.hohai.component.system.mapper.SysRoleMenuMapper;
@@ -78,11 +79,11 @@ public class SysMenuServiceImpl implements SysMenuService{
      * @param userId 用户ID
      * @return 菜单列表
      */
-//    @Override
-//    public List<SysMenu> selectMenuList(Long userId)
-//    {
-//        return selectMenuList(new SysMenu(), userId);
-//    }
+    @Override
+    public List<SysMenu> selectMenuList(Long userId)
+    {
+        return selectMenuList(new SysMenu(), userId);
+    }
 
     /**
      * 查询系统菜单列表
@@ -90,22 +91,22 @@ public class SysMenuServiceImpl implements SysMenuService{
      * @param menu 菜单信息
      * @return 菜单列表
      */
-//    @Override
-//    public List<SysMenu> selectMenuList(SysMenu menu, Long userId)
-//    {
-//        List<SysMenu> menuList = null;
-//        // 管理员显示所有菜单信息
-//        if (SysUser.isAdmin(userId))
-//        {
-//            menuList = menuMapper.selectMenuList(menu);
-//        }
-//        else
-//        {
-//            menu.getParams().put("userId", userId);
-//            menuList = menuMapper.selectMenuListByUserId(menu);
-//        }
-//        return menuList;
-//    }
+    @Override
+    public List<SysMenu> selectMenuList(SysMenu menu, Long userId)
+    {
+        List<SysMenu> menuList = null;
+        // 管理员显示所有菜单信息
+        if (SysUser.isAdmin(userId))
+        {
+            menuList = menuMapper.selectMenuList(menu);
+        }
+        else
+        {
+            menu.getParams().put("userId", userId);
+            menuList = menuMapper.selectMenuListByUserId(menu);
+        }
+        return menuList;
+    }
 
     /**
      * 根据菜单ID查询信息
@@ -388,17 +389,17 @@ public class SysMenuServiceImpl implements SysMenuService{
      * 根据父节点的ID获取所有子节点
      *
      * @param list 分类表
-     * @param parentId 传入的父节点ID
+     * @param menuPid 传入的父节点ID
      * @return String
      */
-    public List<SysMenu> getChildPerms(List<SysMenu> list, int parentId)
+    public List<SysMenu> getChildPerms(List<SysMenu> list, int menuPid)
     {
         List<SysMenu> returnList = new ArrayList<SysMenu>();
         for (Iterator<SysMenu> iterator = list.iterator(); iterator.hasNext();)
         {
             SysMenu t = (SysMenu) iterator.next();
             // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点
-            if (t.getMenuPid() == parentId)
+            if (t.getMenuPid() == menuPid)
             {
                 recursionFn(list, t);
                 returnList.add(t);

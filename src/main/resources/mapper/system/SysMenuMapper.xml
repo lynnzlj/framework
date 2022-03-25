@@ -22,8 +22,9 @@
         <result property="remark"         column="remark"         />
     </resultMap>
 
-    <sql id="SelectMenuVo">
-        select menu_id, menu_name, menu_pid, url, sort, ifnull(perms,'') as perms, is_link, menu_type, icon, status, create_time
+
+    <sql id="selectMenuVo">
+        select menu_id, menu_name, menu_pid, url, sort, perms, is_link, menu_type, icon, status, create_time
         from sys_menu
     </sql>
 
@@ -49,12 +50,12 @@
         <if test="url != null and url != ''">#{url},</if>
         <if test="sort != null and sort != ''">#{sort},</if>
         <if test="perms !=null and perms != ''">#{perms},</if>
-        <if test="isLink != null and isLink != ''">#{is_link},</if>
-        <if test="menuType != null and menuType != ''">#{menu_type},</if>
+        <if test="isLink != null and isLink != ''">#{isLink},</if>
+        <if test="menuType != null and menuType != ''">#{menuType},</if>
         <if test="icon != null and icon != ''">#{icon},</if>
         <if test="status != null">#{status},</if>
         <if test="remark != null and remark != ''">#{remark},</if>
-        <if test="createBy != null and createBy != ''">#{create_by},</if>
+        <if test="createBy != null and createBy != ''">#{createBy},</if>
         sysdate()
         )
     </insert>
@@ -82,14 +83,11 @@
         where menu_id = #{menuId}
     </update>
 
-    <select id="selectMenuList" parameterType="SysMenu" resultMap="SysMenuResult">
+    <select id="selectMenuList" parameterType="com.hohai.component.system.entity.SysMenu" resultMap="SysMenuResult">
         <include refid="selectMenuVo"/>
         <where>
             <if test="menuName != null and menuName != ''">
                 AND menu_name like concat('%', #{menuName}, '%')
-            </if>
-            <if test="visible != null and visible != ''">
-                AND visible = #{visible}
             </if>
             <if test="status != null and status != ''">
                 AND status = #{status}

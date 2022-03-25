@@ -12,6 +12,7 @@ public class FrameworkApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FrameworkApplication.class, args);
+        System.out.println("（*＾-＾*）启动成功");
     }
 
 }

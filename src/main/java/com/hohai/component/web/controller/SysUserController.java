@@ -73,7 +73,6 @@ public class SysUserController extends BaseController{
     {
         AjaxResult ajax = AjaxResult.success();
         List<SysRole> roles = roleService.selectRoleAll();
-        System.out.println(roles);
         ajax.put("roles", SysUser.isAdmin(userId) ? roles : roles.stream().filter(SysRole::isAdmin).collect(Collectors.toList()));
         if (StringUtils.isNotNull(userId))
         {
@@ -128,9 +127,6 @@ public class SysUserController extends BaseController{
         return toAjax(userService.deleteUserByIds(userIds));
     }
 
-    /**
-     * 重置密码
-     */
     @ApiOperation(value = "重置密码")
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping("/resetPwd")
@@ -142,9 +138,6 @@ public class SysUserController extends BaseController{
         return toAjax(userService.resetPwd(user));
     }
 
-    /**
-     * 状态修改
-     */
     @ApiOperation(value = "用户状态修改")
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping("/changeStatus")
@@ -155,10 +148,7 @@ public class SysUserController extends BaseController{
         return toAjax(userService.updateUserStatus(user));
     }
 
-    /**
-     * 根据用户编号获取授权角色
-     */
-    @ApiOperation(value = "获取授权角色")
+    @ApiOperation(value = "获取授权该用户的角色")
     @GetMapping("/authRole/{userId}")
     public AjaxResult authRole(@PathVariable("userId") Long userId)
     {
@@ -170,9 +160,7 @@ public class SysUserController extends BaseController{
         return ajax;
     }
 
-    /**
-     * 用户授权角色
-     */
+
     @ApiOperation(value = "赋予用户角色")
     @Log(title = "用户管理", businessType = BusinessType.GRANT)
     @PutMapping("/authRole")

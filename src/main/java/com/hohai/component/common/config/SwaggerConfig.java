@@ -84,10 +84,8 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .title(swaggerProperties.getApplicationName())
                 //网页描述
                 .description(swaggerProperties.getApplicationDescription())
-                //接口访问地址
-                .termsOfServiceUrl("http://localhost:8081/")
                 //名称，url，邮箱
-                .contact(new Contact("user",null,"******@qq.com"))
+                .contact(new Contact("Lynn",null,"zhaolj@htgd.com.cn"))
                 //接口版本号
                 .version("Application Version: " + swaggerProperties.getApplicationVersion() + ", Spring Boot Version: " + SpringBootVersion.getVersion())
                 .build();

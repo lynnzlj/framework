@@ -54,7 +54,7 @@ public interface SysMenuService {
      * @param userId 用户ID
      * @return 菜单列表
      */
-    //List<SysMenu> selectMenuList(Long userId);
+    List<SysMenu> selectMenuList(Long userId);
 
     /**
      * 根据用户查询系统菜单列表
@@ -63,7 +63,7 @@ public interface SysMenuService {
      * @param userId 用户ID
      * @return 菜单列表
      */
-    //List<SysMenu> selectMenuList(SysMenu menu, Long userId);
+    List<SysMenu> selectMenuList(SysMenu menu, Long userId);
 
 
     /**

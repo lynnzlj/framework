@@ -1,6 +1,7 @@
 package com.hohai.component.common.core.base;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -21,6 +22,7 @@ public class BaseEntity implements Serializable {
     private String createBy;
 
     /** 创建时间 */
+    @ApiModelProperty(example = "2022-02-22 02:22:22")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
@@ -28,6 +30,7 @@ public class BaseEntity implements Serializable {
     private String updateBy;
 
     /** 更新时间 */
+    @ApiModelProperty( example = "2022-02-22 02:22:22")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 

@@ -162,7 +162,7 @@ public class SysRoleController extends BaseController {
         return AjaxResult.success(roleService.selectRoleAll());
     }
 
-    @ApiOperation(value = "查询已分配用户角色列表")
+    @ApiOperation(value = "查询已分配角色用户列表")
     @GetMapping("/authUser/allocatedList")
     public TableDataInfo allocatedList(SysUser user)
     {
@@ -171,7 +171,7 @@ public class SysRoleController extends BaseController {
         return getDataTable(list);
     }
 
-    @ApiOperation(value = "查询未分配用户角色列表")
+    @ApiOperation(value = "查询未分配角色用户列表")
     @GetMapping("/authUser/unallocatedList")
     public TableDataInfo unallocatedList(SysUser user)
     {
