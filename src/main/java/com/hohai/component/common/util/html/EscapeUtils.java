@@ -57,10 +57,10 @@ public class EscapeUtils {
      * @param content 文本
      * @return 清除标签后的文本
      */
-//    public static String clean(String content)
-//    {
-//        return new HTMLFilter().filter(content);
-//    }
+    public static String clean(String content)
+    {
+        return new HtmlFilter().filter(content);
+    }
 
     /**
      * Escape编码

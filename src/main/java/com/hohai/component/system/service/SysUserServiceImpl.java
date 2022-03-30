@@ -119,12 +119,11 @@ public class SysUserServiceImpl implements SysUserService{
      * 修改用户基本信息
      *
      * @param user 用户信息
-     * @return 结果
      */
     @Override
-    public int updateUserProfile(SysUser user)
+    public void updateUserProfile(SysUser user)
     {
-        return userMapper.updateUser(user);
+        userMapper.updateUser(user);
     }
 
     /**

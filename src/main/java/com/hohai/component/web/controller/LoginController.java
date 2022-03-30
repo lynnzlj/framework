@@ -3,7 +3,9 @@ package com.hohai.component.web.controller;
 import com.hohai.component.common.constant.Constants;
 import com.hohai.component.common.core.model.AjaxResult;
 import com.hohai.component.common.util.SecurityUtils;
+import com.hohai.component.system.entity.SysMenu;
 import com.hohai.component.system.entity.SysUser;
+import com.hohai.component.system.service.SysMenuService;
 import com.hohai.component.web.service.LoginService;
 import com.hohai.component.web.service.PermissionService;
 import com.hohai.component.web.vo.LoginBody;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,6 +35,10 @@ public class LoginController {
 
     @Autowired
     private PermissionService permissionService;
+
+    @Autowired
+    private SysMenuService menuService;
+
 
     /**
      * 登录方法
@@ -69,6 +76,20 @@ public class LoginController {
         ajax.put("roles", roles);
         ajax.put("permissions", permissions);
         return ajax;
+    }
+
+    /**
+     * 获取路由信息
+     *
+     * @return 路由信息
+     */
+    @ApiOperation(value = "获取路由信息")
+    @GetMapping("getRouters")
+    public AjaxResult getRouters()
+    {
+        Long userId = SecurityUtils.getLoginUser().getUser().getUserId();
+        List<SysMenu> menus = menuService.selectMenuTreeByUserId(userId);
+        return AjaxResult.success(menuService.buildMenus(menus));
     }
 
 

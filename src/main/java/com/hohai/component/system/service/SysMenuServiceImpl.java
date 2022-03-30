@@ -74,16 +74,17 @@ public class SysMenuServiceImpl implements SysMenuService{
     }
 
     /**
-     * 根据用户查询系统菜单列表
+     * 根据菜单ID查询信息
      *
-     * @param userId 用户ID
-     * @return 菜单列表
+     * @param menuId 菜单ID
+     * @return 菜单信息
      */
     @Override
-    public List<SysMenu> selectMenuList(Long userId)
+    public SysMenu selectMenuById(Long menuId)
     {
-        return selectMenuList(new SysMenu(), userId);
+        return menuMapper.selectMenuById(menuId);
     }
+
 
     /**
      * 查询系统菜单列表
@@ -108,38 +109,17 @@ public class SysMenuServiceImpl implements SysMenuService{
         return menuList;
     }
 
-    /**
-     * 根据菜单ID查询信息
-     *
-     * @param menuId 菜单ID
-     * @return 菜单信息
-     */
-    @Override
-    public SysMenu selectMenuById(Long menuId)
-    {
-        return menuMapper.selectMenuById(menuId);
-    }
-
 
     /**
-     * 根据用户ID查询菜单
+     * 根据用户查询系统菜单列表
      *
-     * @param userId 用户名称
+     * @param userId 用户ID
      * @return 菜单列表
      */
     @Override
-    public List<SysMenu> selectMenuTreeByUserId(Long userId)
+    public List<SysMenu> selectMenuList(Long userId)
     {
-        List<SysMenu> menus = null;
-        if (SecurityUtils.isAdmin(userId))
-        {
-            menus = menuMapper.selectMenuTreeAll();
-        }
-        else
-        {
-            menus = menuMapper.selectMenuTreeByUserId(userId);
-        }
-        return getChildPerms(menus, 0);
+        return selectMenuList(new SysMenu(), userId);
     }
 
     /**
@@ -161,6 +141,27 @@ public class SysMenuServiceImpl implements SysMenuService{
             }
         }
         return permsSet;
+    }
+
+    /**
+     * 根据用户ID查询菜单树
+     *
+     * @param userId 用户名称
+     * @return 菜单列表
+     */
+    @Override
+    public List<SysMenu> selectMenuTreeByUserId(Long userId)
+    {
+        List<SysMenu> menus = null;
+        if (SecurityUtils.isAdmin(userId))
+        {
+            menus = menuMapper.selectMenuTreeAll();
+        }
+        else
+        {
+            menus = menuMapper.selectMenuTreeByUserId(userId);
+        }
+        return getChildPerms(menus, 0);
     }
 
     /**

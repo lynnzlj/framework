@@ -1,8 +1,5 @@
 package com.hohai.component.common.exception;
 
-import com.hohai.component.common.util.MessageUtils;
-import com.hohai.component.common.util.StringUtils;
-
 /**
  * @author Lynn
  * @date 2022/3/18 9:52
@@ -61,20 +58,20 @@ public class BaseException extends RuntimeException{
         this(null, null, null, defaultMessage);
     }
 
-    @Override
-    public String getMessage()
-    {
-        String message = null;
-        if (!StringUtils.isEmpty(code))
-        {
-            message = MessageUtils.message(code, args);
-        }
-        if (message == null)
-        {
-            message = defaultMessage;
-        }
-        return message;
-    }
+//    @Override
+//    public String getMessage()
+//    {
+//        String message = null;
+//        if (!StringUtils.isEmpty(code))
+//        {
+//            message = MessageUtils.message(code, args);
+//        }
+//        if (message == null)
+//        {
+//            message = defaultMessage;
+//        }
+//        return message;
+//    }
 
     public String getModule()
     {

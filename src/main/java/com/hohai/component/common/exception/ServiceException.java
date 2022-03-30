@@ -51,6 +51,7 @@ public class ServiceException extends RuntimeException{
     }
 
 
+    @Override
     public String getMessage()
     {
         return message;

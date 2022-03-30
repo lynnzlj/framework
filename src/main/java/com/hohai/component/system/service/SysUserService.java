@@ -56,9 +56,8 @@ public interface SysUserService {
      * 修改用户基本信息
      *
      * @param user 用户信息
-     * @return 结果
      */
-    int updateUserProfile(SysUser user);
+    void updateUserProfile(SysUser user);
 
     /**
      * 修改用户头像

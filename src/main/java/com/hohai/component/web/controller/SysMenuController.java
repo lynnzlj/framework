@@ -107,27 +107,25 @@ public class SysMenuController extends BaseController {
         return AjaxResult.success(menuService.selectMenuById(menuId));
     }
 
-    /*
-      获取菜单下拉树列表
-     */
-//    @GetMapping("/treeselect")
-//    public AjaxResult treeselect(SysMenu menu)
-//    {
-//        List<SysMenu> menus = menuService.selectMenuList(menu, getUserId());
-//        return AjaxResult.success(menuService.buildMenuTreeSelect(menus));
-//    }
+    @ApiOperation(value = "获取菜单下拉树列表")
+    @GetMapping("/treeSelect")
+    public AjaxResult treesSelect(SysMenu menu)
+    {
+        SysUser user = SecurityUtils.getLoginUser().getUser();
+        List<SysMenu> menus = menuService.selectMenuList(menu, user.getUserId());
+        return AjaxResult.success(menuService.buildMenuTreeSelect(menus));
+    }
 
-//    /**
-//     * 加载对应角色菜单列表树
-//     */
-//    @GetMapping(value = "/roleMenuTreeselect/{roleId}")
-//    public AjaxResult roleMenuTreeselect(@PathVariable("roleId") Long roleId)
-//    {
-//        List<SysMenu> menus = menuService.selectMenuList(getUserId());
-//        AjaxResult ajax = AjaxResult.success();
-//        ajax.put("checkedKeys", menuService.selectMenuListByRoleId(roleId));
-//        ajax.put("menus", menuService.buildMenuTreeSelect(menus));
-//        return ajax;
-//    }
+    @ApiOperation(value = "加载对应角色菜单列表树")
+    @GetMapping(value = "/roleMenuTreeSelect/{roleId}")
+    public AjaxResult roleMenuTreeSelect(@PathVariable("roleId") Long roleId)
+    {
+        SysUser user = SecurityUtils.getLoginUser().getUser();
+        List<SysMenu> menus = menuService.selectMenuList(user.getUserId());
+        AjaxResult ajax = AjaxResult.success();
+        ajax.put("checkedKeys", menuService.selectMenuListByRoleId(roleId));
+        ajax.put("menus", menuService.buildMenuTreeSelect(menus));
+        return ajax;
+    }
 
 }
